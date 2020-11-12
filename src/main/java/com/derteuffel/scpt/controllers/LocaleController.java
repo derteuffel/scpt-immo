@@ -46,5 +46,24 @@ public class LocaleController {
         return new ResponseEntity<>(locales,HttpStatus.OK);
     }
 
+    @GetMapping("/status/{status}")
+    public ResponseEntity<Collection<Locale>> getLocalesByStatus(@PathVariable Boolean status){
+        Collection<Locale> locales = localeService.getLocalesByStatus(status);
+        return new ResponseEntity<>(locales,HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Locale> getLocale(@PathVariable Long id){
+        Locale locale = localeService.getOne(id);
+        return new ResponseEntity<>(locale,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<?> deleteLocale(@PathVariable Long id){
+        localeService.deleteLocale(id);
+        return ResponseEntity.ok(new MessageResponse("You deleted a locale successfuly"));
+    }
+
 
 }

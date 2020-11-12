@@ -27,4 +27,14 @@ public class ContratServiceImpl implements ContratService {
     public Collection<Contrat> getContratByStatus(Boolean status) {
         return null;
     }
+
+    @Override
+    public Collection<Contrat> getContratByClients(Long id) {
+        return null;
+    }
+
+    @Override
+    public Collection<Contrat> getContratByLocale(Long id) {
+        return null;
+    }
 }

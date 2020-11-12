@@ -10,4 +10,6 @@ import java.util.Collection;
 public interface ContratRepository extends JpaRepository<Contrat,Long> {
 
     Collection<Contrat> findAllByStatus(Boolean status);
+    Collection<Contrat> findAllByClient_Id(Long id);
+    Collection<Contrat> findAllByLocale_Id(Long id);
 }

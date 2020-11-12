@@ -11,4 +11,6 @@ public interface ContratService {
     Contrat saveContrat(ContratHelper contratHelper);
     void deleteContrat(Long id);
     Collection<Contrat> getContratByStatus(Boolean status);
+    Collection<Contrat> getContratByClients(Long id);
+    Collection<Contrat> getContratByLocale(Long id);
 }

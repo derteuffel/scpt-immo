@@ -11,5 +11,4 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
 
     Collection<Client> findAllByType(String type);
     Collection<Client> findAllByActivite(String activite);
-    Collection<Client> findAllByLocales_Id(Long id);
 }

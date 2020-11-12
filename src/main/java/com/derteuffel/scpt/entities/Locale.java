@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -22,8 +23,8 @@ public class Locale implements Serializable {
     @ManyToOne
     private Representation representation;
 
-    @ManyToMany
-    private List<Client> clients;
+    @OneToMany(mappedBy = "locale")
+    private Collection<Contrat> contrats;
 
     public Locale() {
     }
@@ -74,11 +75,11 @@ public class Locale implements Serializable {
         this.representation = representation;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public Collection<Contrat> getContrats() {
+        return contrats;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
+    public void setContrats(Collection<Contrat> contrats) {
+        this.contrats = contrats;
     }
 }

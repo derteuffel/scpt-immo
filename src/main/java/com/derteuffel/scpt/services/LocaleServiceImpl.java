@@ -15,7 +15,7 @@ public class LocaleServiceImpl implements LocaleService {
     private LocaleRepository localeRepository;
     @Override
     public Locale getOne(Long id) {
-        return null;
+        return localeRepository.getOne(id);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class LocaleServiceImpl implements LocaleService {
 
     @Override
     public void deleteLocale(Long id) {
-
+        localeRepository.deleteById(id);
     }
 
     @Override
     public Collection<Locale> getLocalesByStatus(Boolean status) {
-        return null;
+        return localeRepository.findAllByStatus(status);
     }
 
     @Override
@@ -44,6 +44,6 @@ public class LocaleServiceImpl implements LocaleService {
 
     @Override
     public Collection<Locale> getLocalesByRepresentation(Long id) {
-        return null;
+        return localeRepository.findAllByRepresentation_Id(id);
     }
 }

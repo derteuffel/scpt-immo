@@ -2,10 +2,7 @@ package com.derteuffel.scpt.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -21,6 +18,12 @@ public class Contrat implements Serializable {
     private Boolean status;
     private Double montantGaranti;
     private String dateSignature;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "locale_id")
+    private Locale locale;
 
     public Contrat() {
     }
@@ -70,5 +73,21 @@ public class Contrat implements Serializable {
 
     public void setDateSignature(String dateSignature) {
         this.dateSignature = dateSignature;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

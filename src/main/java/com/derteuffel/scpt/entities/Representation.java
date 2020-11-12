@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -20,11 +21,9 @@ public class Representation implements Serializable {
     private String avenue;
     private int numParcelle;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "representation_accounts",
-            joinColumns = @JoinColumn(name = "representation_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id"))
-    private List<Account> accounts;
+
+    @OneToMany(mappedBy = "representation")
+    private Collection<AccountRepresentation> accountRepresentations;
 
     @OneToMany(mappedBy = "representation")
     private List<Locale> locales;
@@ -88,12 +87,12 @@ public class Representation implements Serializable {
         this.numParcelle = numParcelle;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public Collection<AccountRepresentation> getAccountRepresentations() {
+        return accountRepresentations;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setAccountRepresentations(Collection<AccountRepresentation> accountRepresentations) {
+        this.accountRepresentations = accountRepresentations;
     }
 
     public List<Locale> getLocales() {

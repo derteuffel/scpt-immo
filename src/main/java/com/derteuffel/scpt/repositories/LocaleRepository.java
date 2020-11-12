@@ -10,7 +10,6 @@ import java.util.Collection;
 public interface LocaleRepository extends JpaRepository<Locale,Long> {
 
     Collection<Locale> findAllByStatus(Boolean status);
-    Collection<Locale> findAllByClients_Id(Long id);
     Collection<Locale> findAllByRepresentation_Id(Long id);
 
 }
