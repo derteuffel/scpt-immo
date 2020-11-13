@@ -53,6 +53,20 @@ public class RepresentationServiceImpl implements RepresentationService {
     }
 
     @Override
+    public Representation updateRepresentation(RepresentationHelper helper, Long id) {
+
+        Representation representation = representationRepository.getOne(id);
+        representation.setVille(helper.getVille());
+        representation.setProvince(helper.getProvince());
+        representation.setNumParcelle(helper.getNumParcelle());
+        representation.setCommune(helper.getCommune());
+        representation.setAvenue(helper.getAvenue());
+        representationRepository.save(representation);
+
+        return representation;
+    }
+
+    @Override
     public void deleteRepresentation(Long id) {
         representationRepository.deleteById(id);
     }

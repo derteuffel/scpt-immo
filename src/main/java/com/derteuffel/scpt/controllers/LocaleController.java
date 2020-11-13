@@ -25,11 +25,11 @@ public class LocaleController {
     @Autowired
     private RepresentationRepository representationRepository;
 
-    @PostMapping("/save")
-    @PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
+    @PostMapping("/save/{id}")
+    //@PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
     public ResponseEntity<?> saveLocale(@RequestBody LocaleHelper localeHelper, @PathVariable Long id){
         Representation representation = representationRepository.getOne(id);
-        localeHelper.setRepresentation(representation);
+        localeHelper.setRepresentationId(representation.getId());
         localeService.saveLocale(localeHelper);
         return ResponseEntity.ok(new MessageResponse("Locale added successfuly"));
     }

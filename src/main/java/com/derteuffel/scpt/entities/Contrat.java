@@ -1,5 +1,6 @@
 package com.derteuffel.scpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,9 +21,11 @@ public class Contrat implements Serializable {
     private String dateSignature;
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @JsonIgnore
     private Client client;
     @ManyToOne
     @JoinColumn(name = "locale_id")
+    @JsonIgnore
     private Locale locale;
 
     public Contrat() {

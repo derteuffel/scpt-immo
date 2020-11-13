@@ -1,5 +1,6 @@
 package com.derteuffel.scpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Locale implements Serializable {
     private Boolean status;
 
     @ManyToOne
+    @JsonIgnore
     private Representation representation;
 
     @OneToMany(mappedBy = "locale")

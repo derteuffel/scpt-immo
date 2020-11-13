@@ -7,7 +7,7 @@ public class LocaleHelper {
     private int numLocale;
     private Double montant;
 
-    private Representation representation;
+    private Long representationId;
 
     public int getNumLocale() {
         return numLocale;
@@ -25,11 +25,11 @@ public class LocaleHelper {
         this.montant = montant;
     }
 
-    public Representation getRepresentation() {
-        return representation;
+    public Long getRepresentationId() {
+        return representationId;
     }
 
-    public void setRepresentation(Representation representation) {
-        this.representation = representation;
+    public void setRepresentationId(Long representationId) {
+        this.representationId = representationId;
     }
 }

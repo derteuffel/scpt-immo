@@ -9,6 +9,7 @@ public interface RepresentationService {
 
     Representation getOne(Long id);
     Representation saveRepresentation(RepresentationHelper representationHelper);
+    Representation updateRepresentation(RepresentationHelper representationHelper, Long id);
     void deleteRepresentation(Long id);
     Collection<Representation> getRepresentationsByAccount(Long id);
     Collection<Representation> getRepresentationsByProvince(String province);

@@ -38,8 +38,8 @@ public class RepresentationController {
     private RoleRepository roleRepository;
 
 
-    @PostMapping("/save")
-    @PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
+    @PostMapping("")
+    //@PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
     public ResponseEntity<?> save(@RequestBody RepresentationHelper representationHelper, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         System.out.println(representationHelper.getCommune());
@@ -49,51 +49,61 @@ public class RepresentationController {
         return  ResponseEntity.ok(new MessageResponse("Representation saved successfuly"));
     }
 
-    @GetMapping("/get/{id}")
+    @PostMapping("/{id}")
+    //@PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
+    public ResponseEntity<?> update(@RequestBody RepresentationHelper representationHelper, @PathVariable Long id){
+        System.out.println(representationHelper.getCommune());
+        representationService.updateRepresentation(representationHelper, id);
+        return  ResponseEntity.ok(new MessageResponse("Representation updated successfuly"));
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Representation> getOne(@PathVariable Long id){
         Representation representation = representationService.getOne(id);
         return new ResponseEntity<>(representation, HttpStatus.OK);
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<Collection<Representation>> getAllRepresentations(HttpServletRequest request){
-        Principal principal = request.getUserPrincipal();
+        /*Principal principal = request.getUserPrincipal();
         Account account = accountRepository.findByUsername(principal.getName()).orElseThrow(
                 ()-> new RuntimeException("Error: Account is not found")
         );
         Role role = roleRepository.findByName(ERole.ROLE_ROOT).orElseThrow(
                 ()-> new RuntimeException("Error: Role is not found")
-        );
+        );*/
 
-        Collection<Representation> representations = new ArrayList<>();
+        Collection<Representation> representations = representationService.getRepresentationsAll();
 
-        if (account.getRoles().contains(role)){
+       /* if (account.getRoles().contains(role)){
             representations.addAll(representationService.getRepresentationsAll());
         }else {
             representations.addAll(representationService.getRepresentationsByAccount(account.getId()));
-        }
+        }*/
+
+
 
         return new ResponseEntity<>(representations,HttpStatus.OK);
     }
 
 
     @GetMapping("/province/{province}")
-    @PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ROOT') or hasRole('ADMIN')")
     public  ResponseEntity<Collection<Representation>> getRepresentationsByProvince(@PathVariable String province){
         Collection<Representation> representations = representationService.getRepresentationsByProvince(province);
         return new ResponseEntity<>(representations,HttpStatus.OK);
     }
 
     @GetMapping("/commune/{commune}")
-    @PreAuthorize("hasRole('ROOT')")
+    //@PreAuthorize("hasRole('ROOT')")
     public  ResponseEntity<Collection<Representation>> getRepresentationsByCommune(@PathVariable String commune){
         Collection<Representation> representations = representationService.getRepresentationsByCommune(commune);
         return new ResponseEntity<>(representations,HttpStatus.OK);
     }
 
     @GetMapping("/ville/{ville}")
-    @PreAuthorize("hasRole('ROOT')")
+    //@PreAuthorize("hasRole('ROOT')")
     public  ResponseEntity<Collection<Representation>> getRepresentationsByVille(@PathVariable String ville){
         Collection<Representation> representations = representationService.getRepresentationsbyVille(ville);
         return new ResponseEntity<>(representations,HttpStatus.OK);

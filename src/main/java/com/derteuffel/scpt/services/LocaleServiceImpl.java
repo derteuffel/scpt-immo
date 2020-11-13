@@ -1,11 +1,16 @@
 package com.derteuffel.scpt.services;
 
+import com.derteuffel.scpt.entities.Contrat;
 import com.derteuffel.scpt.entities.Locale;
+import com.derteuffel.scpt.entities.Representation;
 import com.derteuffel.scpt.helpers.LocaleHelper;
+import com.derteuffel.scpt.repositories.ContratRepository;
 import com.derteuffel.scpt.repositories.LocaleRepository;
+import com.derteuffel.scpt.repositories.RepresentationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -13,6 +18,13 @@ public class LocaleServiceImpl implements LocaleService {
 
     @Autowired
     private LocaleRepository localeRepository;
+
+    @Autowired
+    private RepresentationRepository representationRepository;
+
+    @Autowired
+    private ContratRepository contratRepository;
+
     @Override
     public Locale getOne(Long id) {
         return localeRepository.getOne(id);
@@ -21,8 +33,10 @@ public class LocaleServiceImpl implements LocaleService {
     @Override
     public Locale saveLocale(LocaleHelper localeHelper) {
 
+        Representation representation = representationRepository.getOne(localeHelper.getRepresentationId());
+
         Locale locale = new Locale(localeHelper.getNumLocale(),localeHelper.getMontant(),false);
-        locale.setRepresentation(localeHelper.getRepresentation());
+        locale.setRepresentation(representation);
         localeRepository.save(locale);
         return locale;
     }
@@ -39,7 +53,15 @@ public class LocaleServiceImpl implements LocaleService {
 
     @Override
     public Collection<Locale> getLocalesByClients(Long id) {
-        return null;
+
+        Collection<Contrat> contrats = contratRepository.findAllByClient_Id(id);
+        Collection<Locale> locales = new ArrayList<>();
+        for (Contrat contrat : contrats){
+            if (contrat.getLocale()!= null){
+                locales.add(contrat.getLocale());
+            }
+        }
+        return locales;
     }
 
     @Override

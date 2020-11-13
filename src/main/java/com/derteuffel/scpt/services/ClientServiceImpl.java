@@ -5,9 +5,11 @@ import com.derteuffel.scpt.entities.Contrat;
 import com.derteuffel.scpt.helpers.ClientHelper;
 import com.derteuffel.scpt.repositories.ClientRepository;
 import com.derteuffel.scpt.repositories.ContratRepository;
+import com.derteuffel.scpt.repositories.LocaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -20,9 +22,12 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ContratRepository contratRepository;
 
+    @Autowired
+    private LocaleRepository localeRepository;
+
     @Override
     public Client getOne(Long id) {
-        return null;
+        return clientRepository.getOne(id);
     }
 
     @Override
@@ -37,10 +42,10 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.save(client);
         Contrat contrat = new Contrat();
         contrat.setClient(client);
-        contrat.setLocale(clientHelper.getLocale());
+        contrat.setLocale(localeRepository.getOne(clientHelper.getLocaleId()));
         contrat.setDateSignature(clientHelper.getDateSignature());
         contrat.setDureeGaranti(clientHelper.getDureeGaranti());
-        contrat.setMontantGaranti(clientHelper.getLocale().getMontant()*clientHelper.getDureeGaranti());
+        contrat.setMontantGaranti(localeRepository.getOne(clientHelper.getLocaleId()).getMontant()*clientHelper.getDureeGaranti());
         contrat.setStatus(true);
         contratRepository.save(contrat);
         return client;
@@ -48,21 +53,31 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void deleteClient(Long id) {
-
+        clientRepository.deleteById(id);
     }
 
     @Override
     public Collection<Client> getClientsByType(String type) {
-        return null;
+
+        Collection<Client> clients = clientRepository.findAllByType(type);
+        return clients;
     }
 
     @Override
     public Collection<Client> getClientByActivite(String activite) {
-        return null;
+        Collection<Client> clients = clientRepository.findAllByActivite(activite);
+        return clients;
     }
 
     @Override
     public Collection<Client> getClientByLocales(Long id) {
-        return null;
+        Collection<Contrat> contrats = contratRepository.findAllByLocale_Id(id);
+        Collection<Client> clients = new ArrayList<>();
+        for (Contrat contrat : contrats){
+            if (contrat.getClient()!= null){
+                clients.add(contrat.getClient());
+            }
+        }
+        return clients;
     }
 }

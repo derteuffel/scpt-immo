@@ -1,5 +1,6 @@
 package com.derteuffel.scpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ public class AccountRepresentation  implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
     @ManyToOne
     @JoinColumn(name = "representation_id")
+    @JsonIgnore
     private Representation representation;
 
     public AccountRepresentation() {

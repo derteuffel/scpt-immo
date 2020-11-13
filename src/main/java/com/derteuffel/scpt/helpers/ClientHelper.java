@@ -14,7 +14,7 @@ public class ClientHelper {
     private Double montantGaranti;
     private String dateSignature;
 
-    private Locale locale;
+    private Long localeId;
 
     public String getName() {
         return name;
@@ -80,11 +80,11 @@ public class ClientHelper {
         this.dateSignature = dateSignature;
     }
 
-    public Locale getLocale() {
-        return locale;
+    public Long getLocaleId() {
+        return localeId;
     }
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
+    public void setLocaleId(Long localeId) {
+        this.localeId = localeId;
     }
 }
