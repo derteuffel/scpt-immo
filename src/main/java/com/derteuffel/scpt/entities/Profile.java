@@ -1,6 +1,8 @@
 package com.derteuffel.scpt.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "profile")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Profile implements Serializable{
 
     @Id

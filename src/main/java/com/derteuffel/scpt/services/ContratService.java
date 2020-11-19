@@ -8,7 +8,9 @@ import java.util.Collection;
 public interface ContratService {
 
     Contrat getOne(Long id);
+    Contrat save(Contrat contrat, Long id);
     Contrat saveContrat(ContratHelper contratHelper);
+    Collection<Contrat> findAll();
     void deleteContrat(Long id);
     Collection<Contrat> getContratByStatus(Boolean status);
     Collection<Contrat> getContratByClients(Long id);

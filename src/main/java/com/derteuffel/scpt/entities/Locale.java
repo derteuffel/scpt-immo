@@ -2,6 +2,8 @@ package com.derteuffel.scpt.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "locales")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Locale implements Serializable {
 
     @Id
@@ -20,21 +23,23 @@ public class Locale implements Serializable {
     private int numLocale;
     private Double montant;
     private Boolean status;
+    private Double superficie;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Representation representation;
 
     @OneToMany(mappedBy = "locale")
+    @JsonIgnore
     private Collection<Contrat> contrats;
 
     public Locale() {
     }
 
-    public Locale(int numLocale, Double montant, Boolean status) {
+    public Locale(int numLocale, Double montant, Boolean status, Double superficie) {
         this.numLocale = numLocale;
         this.montant = montant;
         this.status = status;
+        this.superficie = superficie;
     }
 
     public Long getId() {
@@ -83,5 +88,13 @@ public class Locale implements Serializable {
 
     public void setContrats(Collection<Contrat> contrats) {
         this.contrats = contrats;
+    }
+
+    public Double getSuperficie() {
+        return superficie;
+    }
+
+    public void setSuperficie(Double superficie) {
+        this.superficie = superficie;
     }
 }

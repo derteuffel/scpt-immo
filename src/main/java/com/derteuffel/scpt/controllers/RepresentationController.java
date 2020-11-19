@@ -43,8 +43,8 @@ public class RepresentationController {
     public ResponseEntity<?> save(@RequestBody RepresentationHelper representationHelper, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         System.out.println(representationHelper.getCommune());
-        Optional<Account> account = accountRepository.findByUsername(principal.getName());
-        representationHelper.setAccount(account.orElseThrow(()-> new RuntimeException("Error: Account is not found.")));
+        /*Optional<Account> account = accountRepository.findByUsername(principal.getName());
+        representationHelper.setAccount(account.orElseThrow(()-> new RuntimeException("Error: Account is not found.")));*/
         representationService.saveRepresentation(representationHelper);
         return  ResponseEntity.ok(new MessageResponse("Representation saved successfuly"));
     }
@@ -109,7 +109,7 @@ public class RepresentationController {
         return new ResponseEntity<>(representations,HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteRepresentation(@PathVariable Long id){
         Representation representation = representationService.getOne(id);
         representationService.deleteRepresentation(representation.getId());

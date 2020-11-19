@@ -6,6 +6,16 @@ public class LocaleHelper {
 
     private int numLocale;
     private Double montant;
+    private Double superficie;
+
+
+    public Double getSuperficie() {
+        return superficie;
+    }
+
+    public void setSuperficie(Double superficie) {
+        this.superficie = superficie;
+    }
 
     private Long representationId;
 

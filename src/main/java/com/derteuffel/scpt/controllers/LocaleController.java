@@ -52,6 +52,12 @@ public class LocaleController {
         return new ResponseEntity<>(locales,HttpStatus.OK);
     }
 
+    @GetMapping("")
+    public ResponseEntity<Collection<Locale>> getLocales(){
+        Collection<Locale> locales = localeService.findAll();
+        return new ResponseEntity<>(locales,HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Locale> getLocale(@PathVariable Long id){
         Locale locale = localeService.getOne(id);
@@ -64,6 +70,19 @@ public class LocaleController {
         localeService.deleteLocale(id);
         return ResponseEntity.ok(new MessageResponse("You deleted a locale successfuly"));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateLocale(@PathVariable Long id, @RequestBody Locale locale){
+        Locale locale1 = localeService.getOne(id);
+        locale1.setMontant(locale.getMontant());
+        locale1.setNumLocale(locale.getNumLocale());
+        locale1.setSuperficie(locale.getSuperficie());
+        localeService.save(locale1);
+
+        return ResponseEntity.ok(new MessageResponse("You updated successfuly your Locale"));
+    }
+
+
 
 
 }

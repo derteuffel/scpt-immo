@@ -2,6 +2,8 @@ package com.derteuffel.scpt.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "contrats")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Contrat implements Serializable {
 
     @Id
@@ -21,11 +24,9 @@ public class Contrat implements Serializable {
     private String dateSignature;
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonIgnore
     private Client client;
     @ManyToOne
     @JoinColumn(name = "locale_id")
-    @JsonIgnore
     private Locale locale;
 
     public Contrat() {

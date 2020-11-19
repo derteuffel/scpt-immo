@@ -2,6 +2,7 @@ package com.derteuffel.scpt.services;
 
 import com.derteuffel.scpt.entities.Client;
 import com.derteuffel.scpt.entities.Contrat;
+import com.derteuffel.scpt.entities.Locale;
 import com.derteuffel.scpt.helpers.ClientHelper;
 import com.derteuffel.scpt.repositories.ClientRepository;
 import com.derteuffel.scpt.repositories.ContratRepository;
@@ -48,6 +49,9 @@ public class ClientServiceImpl implements ClientService {
         contrat.setMontantGaranti(localeRepository.getOne(clientHelper.getLocaleId()).getMontant()*clientHelper.getDureeGaranti());
         contrat.setStatus(true);
         contratRepository.save(contrat);
+        Locale locale = localeRepository.getOne(clientHelper.getLocaleId());
+        locale.setStatus(true);
+        localeRepository.save(locale);
         return client;
     }
 
@@ -61,6 +65,11 @@ public class ClientServiceImpl implements ClientService {
 
         Collection<Client> clients = clientRepository.findAllByType(type);
         return clients;
+    }
+
+    @Override
+    public Collection<Client> getClients() {
+        return clientRepository.findAll();
     }
 
     @Override

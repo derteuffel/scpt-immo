@@ -10,7 +10,9 @@ public interface ClientService {
     Client getOne(Long id);
     Client saveClient(ClientHelper clientHelper);
     void deleteClient(Long id);
+
     Collection<Client> getClientsByType(String type);
+    Collection<Client> getClients();
     Collection<Client> getClientByActivite(String activite);
     Collection<Client> getClientByLocales(Long id);
 }

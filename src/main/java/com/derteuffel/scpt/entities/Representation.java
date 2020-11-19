@@ -1,6 +1,9 @@
 package com.derteuffel.scpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "representations")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Representation implements Serializable {
 
     @Id
@@ -23,9 +27,11 @@ public class Representation implements Serializable {
 
 
     @OneToMany(mappedBy = "representation")
+    @JsonIgnore
     private Collection<AccountRepresentation> accountRepresentations;
 
     @OneToMany(mappedBy = "representation")
+    @JsonIgnore
     private List<Locale> locales;
 
     public Representation() {

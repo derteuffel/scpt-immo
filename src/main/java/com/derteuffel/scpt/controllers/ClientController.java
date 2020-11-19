@@ -30,7 +30,7 @@ public class ClientController {
     @Autowired
     private LocaleService localeService;
 
-    @PostMapping("/save/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<?> saveClient(@RequestBody ClientHelper clientHelper, @PathVariable Long id){
         Locale locale = localeService.getOne(id);
         clientHelper.setLocaleId(locale.getId());
@@ -42,6 +42,12 @@ public class ClientController {
     @GetMapping("/type/{type}")
     public ResponseEntity<Collection<Client>> getClientByType(@PathVariable String type){
         Collection<Client> clients = clientService.getClientsByType(type);
+        return new ResponseEntity<>(clients, HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Collection<Client>> getClients(){
+        Collection<Client> clients = clientService.getClients();
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 

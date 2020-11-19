@@ -1,6 +1,10 @@
 package com.derteuffel.scpt.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "clients")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Client implements Serializable {
 
     @Id
@@ -23,6 +28,7 @@ public class Client implements Serializable {
     private String activite;
 
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private Collection<Contrat> contrats;
 
     public Client() {

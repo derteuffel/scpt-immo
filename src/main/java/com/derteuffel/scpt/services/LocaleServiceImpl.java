@@ -35,16 +35,28 @@ public class LocaleServiceImpl implements LocaleService {
 
         Representation representation = representationRepository.getOne(localeHelper.getRepresentationId());
 
-        Locale locale = new Locale(localeHelper.getNumLocale(),localeHelper.getMontant(),false);
+        Locale locale = new Locale(localeHelper.getNumLocale(),localeHelper.getMontant(),false,localeHelper.getSuperficie());
         locale.setRepresentation(representation);
         localeRepository.save(locale);
         return locale;
     }
 
     @Override
+    public Locale save(Locale locale) {
+        return localeRepository.save(locale);
+    }
+
+    @Override
+    public Collection<Locale> findAll() {
+        return localeRepository.findAll();
+    }
+
+    @Override
     public void deleteLocale(Long id) {
         localeRepository.deleteById(id);
     }
+
+
 
     @Override
     public Collection<Locale> getLocalesByStatus(Boolean status) {

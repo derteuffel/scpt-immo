@@ -9,6 +9,8 @@ public interface LocaleService {
 
     Locale getOne(Long id);
     Locale saveLocale(LocaleHelper localeHelper);
+    Locale save(Locale locale);
+    Collection<Locale> findAll();
     void deleteLocale(Long id);
     Collection<Locale> getLocalesByStatus(Boolean status);
     Collection<Locale> getLocalesByClients(Long id);
